@@ -24,7 +24,7 @@ document.querySelector(".save-advice").addEventListener("click", () => {
 
             jsonarray.push(json);
 
-            let html = `<div class="advice-saved"> <span>${json.slip.advice}</span> <button class="img-trash"> <img class="img" src="../Images/trash-black.svg"> </button> </div>`
+            let html = `<div class="advice-saved"> <span>${json.slip.advice}</span> <button class="img-trash"> <img class="img" src="Images/trash-black.svg"> </button> </div>`
 
             document.querySelector(".Empty").style.display = "none"
 
@@ -55,12 +55,12 @@ document.querySelector("#button-ok-modal").addEventListener("click", () => {
 
 //function trashImg
 function mouseOverTrashImg(img){
-    img.src = "../Images/trash-red.svg"
+    img.src = "Images/trash-red.svg"
 }
 
 //function trashImg
 function mouseOutTrashImg(img){
-    img.src = "../Images/trash-black.svg"
+    img.src = "Images/trash-black.svg"
 }
 
 //function trashImg
