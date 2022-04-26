@@ -2,9 +2,10 @@
 Sorteie um conselho aleatorio para sua vida!
 
 # Objetivo
-Usar uma API externa para dar incriveis conselhos.
+Usar uma API externa para sortear diferentes conselhos e mostá-los em tela.
 API usada: https://api.adviceslip.com
 
 Você pode sortear um conselho ou salva-lós.
+
 O uso é fácil.
 
