@@ -15,16 +15,15 @@ document.querySelector(".save-advice").addEventListener("click", () => {
     let stringJsonArray = JSON.stringify(jsonarray)
     let stringJson = JSON.stringify(json)
     if(stringJsonArray.includes(stringJson)){
-        document.querySelector("#modal-text").innerHTML = "Advice repetead"
-        document.querySelector(".modal").style.opacity = 1
-        document.querySelector(".modal").style.pointerEvents = "all"
+        document.querySelector("#modal-text").innerHTML = "Advice repetead";
+        document.querySelector(".modal").classList.add("modalWarning");
     }else{
         if(jsonarray.length < 8){
             historico = document.querySelector(".div-historico")
 
             jsonarray.push(json);
 
-            let html = `<div class="advice-saved"> <span>${json.slip.advice}</span> <button class="img-trash"> <img class="img" src="Images/trash-white.png"> </button> </div>`
+            let html = `<div class="advice-saved"> <span>${json.slip.advice}</span> <button class="img-trash"> <img class="img" src="assets/Images/trash-white.png"> </button> </div>`
 
             document.querySelector(".Empty").style.display = "none"
 
@@ -33,15 +32,14 @@ document.querySelector(".save-advice").addEventListener("click", () => {
             historico.style.justifyContent = "flex-start"
             let imgs = document.querySelectorAll(".img") 
             let boxAdviceSaved = document.querySelectorAll(".advice-saved") 
-            for (let i in imgs){
-                boxAdviceSaved[i].setAttribute("id", "cor"+[i]+"")
-                imgs[i].setAttribute("onclick", "mouseClickTrashImg("+ jsonarray[i].slip.id +")");
+            for (let i in boxAdviceSaved){
                 imgs[i].setAttribute("onmouseover", "mouseOverTrashImg(this)")
                 imgs[i].setAttribute("onmouseout", "mouseOutTrashImg(this)")  
+                imgs[i].setAttribute("onclick", "mouseClickTrashImg("+ jsonarray[i].slip.id +")");
+                boxAdviceSaved[i].setAttribute("id", "cor"+[i])
             }
         }else{
-            document.querySelector(".modal").style.opacity = 1
-            document.querySelector(".modal").style.pointerEvents = "all"
+            document.querySelector(".modal").classList.add("modalWarning");
             document.querySelector("#modal-text").innerHTML = "The Advice limit save is eight (8)"
         }
     }
@@ -49,18 +47,17 @@ document.querySelector(".save-advice").addEventListener("click", () => {
 
 //modal button
 document.querySelector("#button-ok-modal").addEventListener("click", () => {
-    document.querySelector(".modal").style.opacity = 0
-    document.querySelector(".modal").style.pointerEvents = "none"
+    document.querySelector(".modal").classList.remove("modalWarning");
 })
 
 //function trashImg
 function mouseOverTrashImg(img){
-    img.src = "Images/trash-black.png"
+    img.src = "assets/Images/trash-black.png"
 }
 
 //function trashImg
 function mouseOutTrashImg(img){
-    img.src = "Images/trash-white.png"
+    img.src = "assets/Images/trash-white.png"
 }
 
 //function trashImg

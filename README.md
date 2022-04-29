@@ -9,3 +9,5 @@ Você pode sortear um conselho ou salva-lós.
 
 O uso é fácil.
 
+document.querySelector("#modal-text") .innerHTML = "Advice repetead";
+        document.querySelector(".modal") .classList.add("modalRepetead");
