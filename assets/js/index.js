@@ -1,78 +1,98 @@
-let jsonarray = []
-let json;
-let historico;
+let dataArray = []
+let boardSavesAdvices;
+let data;
+
+const fetchData = async () => {
+    let req = await fetch("https://api.adviceslip.com/advice");
+    let json = await req.json();
+
+    return json
+}
 
 //buton advice
-document.querySelector(".advice").addEventListener("click", async () => {
-    let req = await fetch("https://api.adviceslip.com/advice");
-    json = await req.json();
+const clickDrawAdvice = async () => {
+    data = await fetchData()
+    document.querySelector(".box").innerHTML = data.slip.advice
+}
 
-    document.querySelector(".box").innerHTML = json.slip.advice
-})
+const adviceRepeteadWarning = () => {
+    document.querySelector("#modal-text").innerHTML = "Advice repetead";
+    document.querySelector(".modal").classList.add("modalWarning");
+}
 
-//button save
-document.querySelector(".save-advice").addEventListener("click", () => {
-    let stringJsonArray = JSON.stringify(jsonarray)
-    let stringJson = JSON.stringify(json)
-    if(stringJsonArray.includes(stringJson)){
-        document.querySelector("#modal-text").innerHTML = "Advice repetead";
-        document.querySelector(".modal").classList.add("modalWarning");
+const adviceLimitWarning = () => {
+    document.querySelector(".modal").classList.add("modalWarning");
+    document.querySelector("#modal-text").innerHTML = "The Advice limit save is eight (8)"
+}
+
+const createImageDelete = () => {
+    let imgs = document.querySelectorAll(".img") 
+    let boxAdviceSaved = document.querySelectorAll(".advice-saved") 
+    for (let i in boxAdviceSaved){
+        imgs[i].setAttribute("onmouseover", "mouseOverTrashImg(this)")
+        imgs[i].setAttribute("onmouseout", "mouseOutTrashImg(this)")  
+        imgs[i].setAttribute("onclick", "mouseClickTrashImg("+ dataArray[i].slip.id +")");
+        boxAdviceSaved[i].setAttribute("id", "cor"+[i])
+    }
+}
+
+const clickSaveAdvice = () => {
+    let stringDataArray = JSON.stringify(dataArray)
+    let stringData = JSON.stringify(data)
+    if(stringDataArray.includes(stringData)){
+        adviceRepeteadWarning()
     }else{
-        if(jsonarray.length < 8){
-            historico = document.querySelector(".div-historico")
+        if(dataArray.length < 8){
+            boardSavesAdvices = document.querySelector(".Board-Saved-Advices")
 
-            jsonarray.push(json);
+            dataArray.push(data);
 
-            let html = `<div class="advice-saved"> <span>${json.slip.advice}</span> <button class="img-trash"> <img class="img" src="assets/Images/trash-white.png"> </button> </div>`
+            let spanAdvice = `<span>${data.slip.advice}</span> `;
+            let buttonTrashDelete = `<button class="img-trash">`+
+                                        `<img class="img" src="assets/Images/trash-white.png">`+
+                                    `</button>`;
+
+            let divcardNew = `<div class="advice-saved">`+ 
+                                `${spanAdvice}`+
+                                `${buttonTrashDelete}`+
+                             `</div>`;
 
             document.querySelector(".Empty").style.display = "none"
 
-            historico.innerHTML += html
-            historico.style.alignItems = "flex-start"
-            historico.style.justifyContent = "flex-start"
-            let imgs = document.querySelectorAll(".img") 
-            let boxAdviceSaved = document.querySelectorAll(".advice-saved") 
-            for (let i in boxAdviceSaved){
-                imgs[i].setAttribute("onmouseover", "mouseOverTrashImg(this)")
-                imgs[i].setAttribute("onmouseout", "mouseOutTrashImg(this)")  
-                imgs[i].setAttribute("onclick", "mouseClickTrashImg("+ jsonarray[i].slip.id +")");
-                boxAdviceSaved[i].setAttribute("id", "cor"+[i])
-            }
+            boardSavesAdvices.innerHTML += divcardNew
+            boardSavesAdvices.style.alignItems = "flex-start"
+            boardSavesAdvices.style.justifyContent = "flex-start"
+            createImageDelete()
         }else{
-            document.querySelector(".modal").classList.add("modalWarning");
-            document.querySelector("#modal-text").innerHTML = "The Advice limit save is eight (8)"
+            adviceLimitWarning()
         }
     }
-})
+} 
 
-//modal button
-document.querySelector("#button-ok-modal").addEventListener("click", () => {
-    document.querySelector(".modal").classList.remove("modalWarning");
-})
-
-//function trashImg
 function mouseOverTrashImg(img){
     img.src = "assets/Images/trash-black.png"
 }
 
-//function trashImg
 function mouseOutTrashImg(img){
     img.src = "assets/Images/trash-white.png"
 }
 
-//function trashImg
 function mouseClickTrashImg(id){
-    for (let i in jsonarray){
-        if (jsonarray[i].slip.id == id){
-            jsonarray.splice(i, 1)
+    for (let i in dataArray){
+        if (dataArray[i].slip.id == id){
+            dataArray.splice(i, 1)
             let box = document.querySelectorAll(".advice-saved")
             box[i].outerHTML = ""
         }
-        if (jsonarray.length == 0){
+        if (dataArray.length == 0){
             let empty = document.querySelector(".Empty")
             empty.style.display = "block"
-            historico.style.alignItems = "center"
-            historico.style.justifyContent = "center"
+            boardSavesAdvices.style.alignItems = "center"
+            boardSavesAdvices.style.justifyContent = "center"
         }
     }
 }
+
+document.querySelector("#button-ok-modal").addEventListener("click", () => {
+    document.querySelector(".modal").classList.remove("modalWarning");
+})

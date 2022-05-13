@@ -1,9 +1,9 @@
 :root{
-    --bh-color: rgb(81,135,38);
+    --bg-color-body-itens: #86a9d4;
+    --bg-color-body-div: #0B132B;
     --bg-body-gradient: linear-gradient(90deg, rgba(221,218,221,1) 0%, rgba(226,221,226,1) 49%, rgba(227,220,220,1) 100%);
-    --bh-color2: white;
-    --box-multiple-2: rgb(242,197,242);;
-    --box-rest: rgb(205,238,181);
+    --box-multiple-2: #FFFFFF;
+    --box-rest: #FFFFFF;
 }
 
 @font-face {
@@ -150,9 +150,9 @@ html, body{
     align-items: center;
     flex-grow: 1;
     flex-basis: auto;
+    background-color: var(--bg-color-body-div);
+    padding-bottom: 10px;
     gap: 20px;
-    background-color: var(--bh-color);
-    background: var(--bg-body-gradient);
 }
 
 .title{
@@ -163,11 +163,11 @@ html, body{
 }
 
 .title-div-h2{
-    background-color: white;
+    background-color: var(--bg-color-body-itens);
     border-radius: 5px;
-    margin-top: 10px;
     width: 400px;
     height: 28px;
+    margin: 10px 10px;
 }
 
 .title h2{
@@ -181,12 +181,14 @@ html, body{
     width: 80%;
     height: 5%;
     border-radius: 5px;
-    background-color: rgba(0,0,0, .05);;
+    background-color: rgba(0,0,0,.05);
     border: 1px solid rgba(24, 5, 5, 0.377);
     display: flex;
+    padding: 0px 20px;
+    margin: 0px 10px;
     justify-content: center;
     align-items: center;
-    background-color: var(--bh-color2);
+    background-color: var(--bg-color-body-itens);
     font-family: "orelega";
 }
 
@@ -205,6 +207,7 @@ html, body{
     padding: 5px;
     width: 100px;
     transition: all ease-in-out .3s;
+    background-color: var(--bg-color-body-itens);
 }
 
 .buttons button:hover{
@@ -212,12 +215,12 @@ html, body{
 }
 
 
-.div-historico{
+.Board-Saved-Advices{
     height: 53%;
     width: 80%;
     border-radius: 8px;
     border: 1px solid rgb(124, 124, 124);
-    background-color: var(--bh-color2);
+    background-color: var(--bg-color-body-itens);
     display: flex;
     padding: 15px;
     align-items: center;
